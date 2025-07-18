@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -18,5 +20,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserDto userDto) {
         userRepository.save(modelMapper.map(userDto, User.class));
+    }
+
+    @Override
+    public UserDto loginUser(String userName, String userPassword) {
+        Optional<User> userOptional = userRepository.findByUserNameAndUserPassword(userName, userPassword);
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            return new UserDto(user.getUserId(),user.getUserName() , user.getUserPassword(),user.getUserEmail());
+        } else {
+            throw  new RuntimeException("User not found");
+        }
     }
 }

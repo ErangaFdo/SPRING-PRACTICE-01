@@ -15,4 +15,10 @@ public class UserController {
      public void saveUser(@RequestBody UserDto userDto) {
             userService.saveUser(userDto);
      }
+
+     @PostMapping("login")
+     public UserDto loginUser(@RequestBody UserDto userDto) {
+       return userService.loginUser(userDto.getUserName(),userDto.getUserPassword());
+
+     }
 }
