@@ -19,4 +19,9 @@ public class StudentServiceImpl implements StudentService {
     public void saveStudent(StudentDto studentDto) {
         studentRepository.save(modelMapper.map(studentDto, Student.class));
     }
+
+    @Override
+    public void updateStudent(StudentDto studentDto) {
+        studentRepository.save(modelMapper.map(studentDto, Student.class));
+    }
 }

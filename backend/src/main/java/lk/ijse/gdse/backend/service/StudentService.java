@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface StudentService {
     void saveStudent(StudentDto studentDto);
+    void updateStudent(StudentDto studentDto);
 }
