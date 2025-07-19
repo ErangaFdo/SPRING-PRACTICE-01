@@ -6,6 +6,8 @@ import lk.ijse.gdse.backend.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/student")
 @RequiredArgsConstructor
@@ -20,5 +22,10 @@ public class StudentController {
     @PutMapping("update")
     public void updateStudent(@RequestBody StudentDto studentDto) {
         studentService.updateStudent(studentDto);
+    }
+
+    @GetMapping("get")
+    public List<StudentDto> getAllStudents() {
+        return studentService.getAllSrudent();
     }
 }
