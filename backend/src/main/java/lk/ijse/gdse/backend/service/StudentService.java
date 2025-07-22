@@ -10,4 +10,5 @@ public interface StudentService {
     void saveStudent(StudentDto studentDto);
     void updateStudent(StudentDto studentDto);
     List<StudentDto> getAllSrudent();
+    void deleteStudent(Integer studentId);
 }
