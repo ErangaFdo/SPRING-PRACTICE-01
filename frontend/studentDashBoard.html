@@ -35,7 +35,6 @@
 
                 <div class="mt-4">
                     <button type="button" class="btn btn-primary" id="studentSave" >Save</button>
-                    <button type="button" class="btn btn-warning" id="studentUpdate">Update</button>
 
                 </div>
             </form>
@@ -49,14 +48,15 @@
             <table class="table table-bordered table-striped" id="studentTable">
                 <thead class="table-dark">
                 <tr>
-                    <th>Id</th>
+
                     <th>Name</th>
                     <th>Address</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="studentTableBody">
                 </tbody>
             </table>
 
@@ -76,6 +76,31 @@
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
             </ul>
         </nav>
+    </div>
+
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editStudentForm" onsubmit="updateJob(event)">
+                    <div class="modal-body">
+                        <input type="hidden" id="editStudentId">
+                        <input type="text" class="form-control mb-3" id="editStudentName" required>
+                        <input type="text" class="form-control mb-3" id="editStudentAddress" required>
+                        <input type="text" class="form-control mb-3" id="editStudentEmail" required>
+                        <input type="text" class="form-control mb-3" id="editStudentPhone" required>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="updateStudentBtn" data-bs-dismiss="modal">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -108,6 +133,8 @@
             }
         })
     })
+
+
 
 
 </script>
