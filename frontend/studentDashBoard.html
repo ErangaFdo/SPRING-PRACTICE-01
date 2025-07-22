@@ -85,7 +85,7 @@
                     <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editStudentForm" onsubmit="updateJob(event)">
+                <form id="editStudentForm" >
                     <div class="modal-body">
                         <input type="hidden" id="editStudentId">
                         <input type="text" class="form-control mb-3" id="editStudentName" required>
@@ -109,6 +109,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
 <script>
+    $(document).ready(function () {
+         loadStudent()
+    })
     $('#studentSave').on('click' , function (){
         let sName = $('#studentName').val();
         let sAddress = $('#studentAddress').val();
@@ -132,7 +135,38 @@
                 alert("Job Failed To Create")
             }
         })
+        loadStudent();
     })
+
+    function loadStudent() {
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8080/api/v1/student/get",
+            success: function (response) {
+                const studentTable = $('#studentTableBody');
+                studentTable.empty();
+                response.forEach(std => {
+                    studentTable.append(`
+                    <tr>
+                        <td>${std.studentName}</td>
+                        <td>${std.studentAddress}</td>
+                        <td>${std.studentEmail}</td>
+                        <td>${std.studentPhone}</td>
+                        <td>
+                            <button class="btn btn-warning me-2" onclick="openEditModel">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                `);
+                });
+            },
+            error: function () {
+                alert("Failed to load students");
+            }
+        });
+    }
+
+
 
 
 
