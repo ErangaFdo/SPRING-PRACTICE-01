@@ -154,7 +154,7 @@
                         <td>${std.studentPhone}</td>
                         <td>
                             <button class="btn btn-warning me-2" onclick="openEditModel ('${std.studentId}', '${std.studentName}', '${std.studentAddress}', '${std.studentEmail}', '${std.studentPhone}') " >Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger" onclick="deleteStudent('${std.studentId}')">Delete</button>
                         </td>
                     </tr>
                 `);
@@ -205,6 +205,22 @@
             }
         });
     });
+
+    function deleteStudent(studentId) {
+        if (confirm("Are you sure you want to delete this Job?")) {
+            $.ajax({
+                method: 'DELETE',
+                url: `http://localhost:8080/api/v1/student/delete?studentId=${studentId}`,
+            success: function () {
+                alert('Student deleted');
+                loadStudent();
+            },
+            error: function () {
+                alert('Failed to delete Student');
+            }
+        });
+        }
+    }
 
 
 </script>
