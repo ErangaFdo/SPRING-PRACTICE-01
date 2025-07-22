@@ -109,6 +109,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
 <script>
+    let currentPage = 0;
+    const pageSize = 5;
+
     $(document).ready(function () {
          loadStudent()
     })
@@ -130,18 +133,19 @@
             }) ,
             success : function (data) {
                 alert("Job Successfuly Created")
+                loadStudent(currentPage);
             } ,
             error : function (data) {
                 alert("Job Failed To Create")
             }
         })
-        loadStudent();
+
     })
 
-    function loadStudent() {
+    function loadStudent(page = 0 ) {
         $.ajax({
             method: "GET",
-            url: "http://localhost:8080/api/v1/student/get",
+            url: `http://localhost:8080/api/v1/student/paginated?page=${page}&size=${pageSize} `,
             success: function (response) {
                 const studentTable = $('#studentTableBody');
                 studentTable.empty();
@@ -159,6 +163,8 @@
                     </tr>
                 `);
                 });
+                currentPage = page
+                loadPagination(page);
             },
             error: function () {
                 alert("Failed to load students");
@@ -220,6 +226,26 @@
             }
         });
         }
+    }
+
+    function loadPagination(current) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/student/total-pages?size=${pageSize}`,
+        method: 'GET',
+            success: function (totalPages) {
+            const pagination = $('.pagination');
+            pagination.empty();
+
+            for (let i = 0; i < totalPages; i++) {
+                const activeClass = i === current ? 'active' : '';
+                const pageBtn = `
+                    <li class="page-item ${activeClass}">
+                        <a class="page-link" href="#" onclick="loadStudent(${i})">${i + 1}</a>
+                    </li>`;
+                pagination.append(pageBtn);
+            }
+        }
+    });
     }
 
 
