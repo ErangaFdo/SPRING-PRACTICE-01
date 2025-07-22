@@ -11,4 +11,6 @@ public interface StudentService {
     void updateStudent(StudentDto studentDto);
     List<StudentDto> getAllSrudent();
     void deleteStudent(Integer studentId);
+    List<StudentDto> getStudentsByPage(int page, int size);
+    int getTotalPages(int size);
 }

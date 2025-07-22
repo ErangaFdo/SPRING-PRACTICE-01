@@ -34,4 +34,14 @@ public class StudentController {
     public void deleteStudent(@RequestParam Integer studentId) {
          studentService.deleteStudent(studentId);
     }
+
+    @GetMapping("paginated")
+    public List<StudentDto> getPaginatedStudents(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        return studentService.getStudentsByPage(page, size);
+    }
+
+    @GetMapping("total-pages")
+    public int getTotalPages(@RequestParam(defaultValue = "5") int size) {
+        return studentService.getTotalPages(size);
+    }
 }
