@@ -35,6 +35,7 @@ public class StudentController {
          studentService.deleteStudent(studentId);
     }
 
+
     @GetMapping("paginated")
     public List<StudentDto> getPaginatedStudents(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         return studentService.getStudentsByPage(page, size);
@@ -43,5 +44,10 @@ public class StudentController {
     @GetMapping("total-pages")
     public int getTotalPages(@RequestParam(defaultValue = "5") int size) {
         return studentService.getTotalPages(size);
+    }
+
+    @GetMapping("search/{keyword}")
+    public List<StudentDto> searchStudent(@PathVariable ("keyword") String keyword) {
+      return studentService.searchStudent(keyword);
     }
 }

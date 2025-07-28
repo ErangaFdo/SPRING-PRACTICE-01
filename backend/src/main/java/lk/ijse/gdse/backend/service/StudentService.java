@@ -13,4 +13,5 @@ public interface StudentService {
     void deleteStudent(Integer studentId);
     List<StudentDto> getStudentsByPage(int page, int size);
     int getTotalPages(int size);
+    List<StudentDto> searchStudent(String keyword);
 }

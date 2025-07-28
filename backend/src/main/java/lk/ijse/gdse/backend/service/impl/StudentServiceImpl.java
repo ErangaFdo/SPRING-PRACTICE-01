@@ -57,5 +57,11 @@ public class StudentServiceImpl implements StudentService {
         return (int) Math.ceil((double) totalStudents / size);
     }
 
+    @Override
+    public List<StudentDto> searchStudent(String keyword) {
+         List<Student> students = studentRepository.findStudentByStudentNameContainingIgnoreCase(keyword);
+        return modelMapper.map(students, new TypeToken<List<StudentDto>>() {}.getType());
+    }
+
 
 }
